@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="img-fluid mb-4" style="max-height: 400px;">
+            <p class="lead mb-5">Sistema para controle de gastos e ganhos para motoristas de aplicativo</p>
+            
+            <div class="d-grid gap-3 col-md-6 mx-auto">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Entrar no Sistema
+                </a>
+                <a href="{{ url_for('cadastro') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Criar Nova Conta
+                </a>
+            </div>
+
+            <div class="mt-5">
+                <h3>Links Rápidos</h3>
+                <div class="list-group mt-3">
+                    <a href="{{ url_for('login') }}?next=/registrar_abastecimento" class="list-group-item list-group-item-action">
+                        <i class="fas fa-gas-pump me-2"></i>Registrar Abastecimento
+                    </a>
+                    <a href="{{ url_for('login') }}?next=/registrar_ganho" class="list-group-item list-group-item-action">
+                        <i class="fas fa-money-bill-wave me-2"></i>Registrar Ganho
+                    </a>
+                    <a href="{{ url_for('login') }}?next=/registrar_oleo" class="list-group-item list-group-item-action">
+                        <i class="fas fa-oil-can me-2"></i>Registrar Troca de Óleo
+                    </a>
+                    <a href="{{ url_for('login') }}?next=/relatorios" class="list-group-item list-group-item-action">
+                        <i class="fas fa-chart-bar me-2"></i>Ver Relatórios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

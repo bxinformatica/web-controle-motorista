@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Dashboard</h2>
+    
+    <!-- Cards de Resumo -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Ganhos</h5>
+                    <p class="card-text">R$ {{ "%.2f"|format(total_ganhos) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Gastos</h5>
+                    <p class="card-text">R$ {{ "%.2f"|format(total_gastos) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Média de Consumo</h5>
+                    <p class="card-text">{{ "%.1f"|format(media_consumo) }} km/l</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Próxima Troca de Óleo</h5>
+                    <p class="card-text">{{ proxima_troca_oleo }} km</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botões de Ação Rápida -->
+    <div class="row mb-4">
+        <div class="col">
+            <a href="{{ url_for('registrar_abastecimento') }}" class="btn btn-primary">Registrar Abastecimento</a>
+            <a href="{{ url_for('registrar_ganho') }}" class="btn btn-success">Registrar Ganho</a>
+            <a href="{{ url_for('registrar_oleo') }}" class="btn btn-warning">Registrar Troca de Óleo</a>
+            <a href="{{ url_for('relatorios') }}" class="btn btn-info">Ver Relatórios</a>
+        </div>
+    </div>
+
+    <!-- Últimos Registros -->
+    <div class="row">
+        <div class="col">
+            <h3>Últimos Registros</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Detalhes</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in ultimos_registros %}
+                        <tr>
+                            <td>{{ registro.data.strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                {% if registro.__class__.__name__ == 'Ganho' %}
+                                    {{ registro.tipo|title }}
+                                {% else %}
+                                    {{ registro.tipo|replace('_', ' ')|title }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if registro.__class__.__name__ == 'Ganho' %}
+                                    Ganho {{ registro.tipo|title }}
+                                {% elif registro.tipo == 'abastecimento' %}
+                                    {{ registro.litros_totais }}L - {{ registro.km_atual - registro.km_anterior }}km
+                                {% elif registro.tipo == 'troca_oleo' %}
+                                    {{ registro.km_atual }}km
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if registro.__class__.__name__ == 'Ganho' %}
+                                    R$ {{ "%.2f"|format(registro.valor) }}
+                                {% else %}
+                                    R$ {{ "%.2f"|format(registro.custo_total) }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if registro.__class__.__name__ == 'Ganho' %}
+                                    <a href="{{ url_for('editar_ganho', id=registro.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                    <a href="{{ url_for('excluir_ganho', id=registro.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
+                                {% elif registro.tipo == 'abastecimento' %}
+                                    <a href="{{ url_for('editar_abastecimento', id=registro.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                    <a href="{{ url_for('excluir_abastecimento', id=registro.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
+                                {% elif registro.tipo == 'troca_oleo' %}
+                                    <a href="{{ url_for('editar_oleo', id=registro.id) }}" class="btn btn-sm btn-primary">Editar</a>
+                                    <a href="{{ url_for('excluir_oleo', id=registro.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este registro?')">Excluir</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

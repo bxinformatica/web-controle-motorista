@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Relatórios</h2>
+    
+    <div class="row">
+        <!-- Resumo Mensal -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Resumo Mensal</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Ganhos</h6>
+                    <p>Total Uber: R$ {{ "%.2f"|format(ganhos_uber) }}</p>
+                    <p>Total iFood: R$ {{ "%.2f"|format(ganhos_ifood) }}</p>
+                    <hr>
+                    <h6>Despesas</h6>
+                    <p>Total Combustível: R$ {{ "%.2f"|format(gastos_combustivel) }}</p>
+                    <p>Total Óleo: R$ {{ "%.2f"|format(gastos_oleo) }}</p>
+                    <hr>
+                    <h6>Balanço</h6>
+                    <p class="fw-bold {% if balanco_total < 0 %}text-danger{% else %}text-success{% endif %}">
+                        Total: R$ {{ "%.2f"|format(balanco_total) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Histórico de Registros -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Últimos Registros</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for registro in ultimos_registros %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ registro.tipo|title }}</h6>
+                                <small>{{ registro.data.strftime('%d/%m/%Y') }}</small>
+                            </div>
+                            <p class="mb-1">
+                                {% if registro.tipo == 'abastecimento' %}
+                                Litros: {{ registro.litros_totais }} | Custo: R$ {{ registro.custo_total }}
+                                {% elif registro.tipo == 'troca_oleo' %}
+                                Custo: R$ {{ registro.custo_total }}
+                                {% else %}
+                                Valor: R$ {{ registro.valor }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        {% else %}
+                        <p class="text-muted">Nenhum registro encontrado.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="d-grid gap-2">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
+{% endblock %} 

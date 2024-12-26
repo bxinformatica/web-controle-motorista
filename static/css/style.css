@@ -1,0 +1,261 @@
+/* Variáveis */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --danger-color: #FF5252;
+    --warning-color: #FFC107;
+    --success-color: #4CAF50;
+    --info-color: #00BCD4;
+    --dark-color: #333;
+    --light-color: #f4f4f4;
+    --transition-speed: 0.3s;
+}
+
+/* Estilos Gerais */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: var(--dark-color);
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 500;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+    height: 70px;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Botões */
+.btn {
+    transition: all var(--transition-speed);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #43A047;
+    border-color: #43A047;
+}
+
+/* Forms */
+.form-control {
+    border-radius: 8px;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* Tabelas */
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background-color: var(--light-color);
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+/* Cards do Dashboard */
+.dashboard-card {
+    border-radius: 15px;
+    border: none;
+    transition: all var(--transition-speed);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.dashboard-card .card-body {
+    padding: 1.5rem;
+}
+
+.dashboard-card .icon {
+    font-size: 2.5rem;
+    opacity: 0.8;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .table-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .navbar-brand img {
+        height: 50px;
+    }
+    
+    .logo-index {
+        max-width: 250px;
+    }
+}
+
+/* Footer */
+.footer {
+    background-color: white;
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Badges */
+.badge {
+    padding: 0.5em 1em;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+/* Progress Bars */
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    transition: width 0.6s ease;
+}
+
+/* Modal */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: var(--light-color);
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    background-color: var(--light-color);
+}
+
+/* Tooltips */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+    transition: background-color var(--transition-speed);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.logo-index {
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto 2rem;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        width: auto;
+        justify-content: flex-start;
+    }
+    
+    .navbar-brand img {
+        height: 50px;
+    }
+    
+    .logo-index {
+        max-width: 250px;
+    }
+} 

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if ganho %}Editar{% else %}Registrar{% endif %} Ganho</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Ganho</label>
+            <select class="form-select" id="tipo" name="tipo" required>
+                <option value="">Selecione o tipo</option>
+                <option value="uber" {% if ganho and ganho.tipo == 'uber' %}selected{% endif %}>Uber</option>
+                <option value="ifood" {% if ganho and ganho.tipo == 'ifood' %}selected{% endif %}>iFood</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor (R$)</label>
+            <input type="number" step="0.01" class="form-control" id="valor" name="valor" value="{{ ganho.valor if ganho else '' }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if ganho %}Atualizar{% else %}Registrar{% endif %}</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %} 
